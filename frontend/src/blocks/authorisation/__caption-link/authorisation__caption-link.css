@@ -1,0 +1,9 @@
+.authorisation__caption-link {
+  text-decoration: none;
+  color: #fff;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.authorisation__caption-link:hover {
+  opacity: 0.6;
+}
