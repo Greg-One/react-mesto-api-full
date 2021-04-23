@@ -67,9 +67,6 @@ app.use(errors());
 app.use('*', () => {
   throw new NotFoundError('Page not found');
 });
-// Пока с остальным разбирался, эту штуку просто воткнул и забыл потестировать даже =/
-// После двух шикарных спринтов по бекэнду корс хорошо нервы потрепал :)
-// Огромное спасибо за ревью!
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode).send({ message: statusCode === 500 ? `${err}` : message });
