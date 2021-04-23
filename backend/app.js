@@ -14,6 +14,7 @@ const usersRoute = require('./routes/users');
 const cardRoute = require('./routes/cards');
 const { createUser, loginUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const NotFoundError = require('./errors/not-found-error');
 
 const { PORT = 3000 } = process.env;
 
@@ -22,9 +23,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(helmet());
 app.disable('x-powered-by');
-app.use(cors({
-  origin: 'http://onemore.mesto.nomoredomains.club',
-}));
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
@@ -33,6 +31,10 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
 
 app.use(requestLogger);
+app.use(cors({
+  origin: 'https://onemore.mesto.nomoredomains.club',
+  credentials: true,
+}));
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -67,6 +69,9 @@ app.use((err, req, res, next) => {
   res.status(statusCode).send({ message: statusCode === 500 ? `${err}` : message });
 
   next();
+});
+app.use('*', () => {
+  throw new NotFoundError('Page not found');
 });
 
 app.listen(PORT, () => {

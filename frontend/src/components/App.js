@@ -134,7 +134,7 @@ function App() {
 
   // Лайк
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
 
     api
       .changeCardLikeStatus(card._id, isLiked)
@@ -163,7 +163,7 @@ function App() {
     api
       .addCustomCard(data)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards([...cards, newCard]);
       })
       .then(closeAllPopups)
       .catch((err) => console.log(err))
@@ -180,7 +180,7 @@ function App() {
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            setEmail(res.data.email);
+            setEmail(res.email);
             history.push('/');
           }
         })

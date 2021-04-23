@@ -6,6 +6,7 @@ export function register(password, email) {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ password, email }),
   }).then(getResponse);
 }
@@ -16,16 +17,14 @@ export function authorisation(password, email) {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ password, email }),
   }).then(getResponse);
 }
 
-export function getContent(token) {
+export function getContent() {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
+    credentials: 'include',
   }).then(getResponse);
 }

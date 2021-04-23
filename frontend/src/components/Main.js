@@ -57,7 +57,7 @@ function Main(props) {
               onCardDelete={props.onCardDelete}
             />
           );
-        })}
+        }).reverse()}
       </section>
     </main>
   );
