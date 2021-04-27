@@ -36,12 +36,6 @@ app.use(cors({
   credentials: true,
 }));
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Server is about to become offline');
-  }, 0);
-});
-
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
